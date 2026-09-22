@@ -1,0 +1,4 @@
+interface:
+  display_name: "通用协作 Skills"
+  short_description: "为人类与 AI 建立可恢复、可验证的通用仓库协作规范"
+  default_prompt: "Use $general-collaboration-skills to establish or improve this repository's contribution workflow."

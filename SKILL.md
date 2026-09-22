@@ -47,16 +47,7 @@ description: This skill defines the user's commonly used collaboration conventio
 
 ## `CONTRIBUTING.md`：开发与提交规范
 
-贡献指南应记录稳定且可重复的流程：
-
-- 开发环境、依赖和本地启动方式；
-- 格式化、Lint、类型检查、单元测试、集成测试和构建命令；
-- 分支、提交消息和 Pull Request 约定；
-- 哪些改动需要测试、设计讨论、ADR 或维护者确认；
-- 如何读取 Issue、Pull Request 和交接记录；
-- 如何报告已验证、未验证和阻塞状态。
-
-命令必须尽量来自当前项目的实际配置。贡献指南不复制完整架构说明，也不记录单个任务的临时排查过程。
+如果需要编写、修改或审查项目 CONTRIBUTING，先读取并使用 [write-contributing 子 skill](skills/write-contributing/SKILL.md)，按项目实际工具链说明开发环境、变更流程、验证要求和交付方式。
 
 ## 架构文档：导航与边界
 

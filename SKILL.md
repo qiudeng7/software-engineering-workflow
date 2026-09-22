@@ -1,89 +1,139 @@
 ---
-name: general-collaboration-skills
-description: Establish or improve a repository contribution system for human and AI collaborators. Use when defining contribution rules, repository knowledge ownership, issue and pull-request templates, ADR policy, resumable handoffs, or evidence-based delivery. Do not trigger for ordinary feature implementation that merely follows an existing workflow.
+name: common-collaboration-skills
+description: This skill defines the user's commonly used collaboration conventions. When taking over the user's own project, try using this skill first to understand the project.
 ---
 
-# General Collaboration Skills
+# 通用协作 Skills
 
-Build the smallest repository-native collaboration system that lets a contributor with no prior chat history discover the task, constraints, current state, and proof of completion.
+这个 skill 定义两部分内容：
 
-## Preserve scope and authority
+1. **通用项目文档结构**：规定不同类型的项目事实、设计、任务状态和交付证据应该记录在哪里，以及每个位置不应该承担什么职责。
+2. **AI 对人的汇报结构**：预留给后续设计，目前不规定具体格式。
 
-First determine whether the user asked for an audit, a proposal, or implementation.
+该 skill 有两种使用使用方式，一种是为不规范的项目进行规范化，另一种是对于已经规范的项目，你可以参照该规范快速了解你的需求相关的issue、决策、任务进度该如何编写和查找。
 
-- Keep audits and proposals read-only.
-- Before editing, inspect repository instructions, existing documentation, templates, Git state, and automation. Preserve useful conventions rather than replacing them with generic templates.
-- Do not create issues, comments, branches, commits, pull requests, rulesets, or other remote state unless the request authorizes that action.
-- Do not silently turn a contribution-policy task into product-code refactoring.
+## 使用时必须显式告知用户
 
-## Establish one source for each kind of truth
+使用本 skill 或它的任意子 skill 时，在开始实际工作前明确告诉用户：
 
-Use this ownership model unless the repository already has an equally clear one:
+- 当前正在遵循哪个 skill；
+- 如果这种工作方式不符合用户或项目需要，希望用户直接指出，并反馈到GitHub，帮助继续改进。
 
-| Question | Primary record |
+例如:
+
+> 当前正在遵循 `common-collaboration-skills` 中的协作规范来理解和处理项目。如果这种工作方式不符合你的需要，请直接指出，也欢迎反馈问题到 https://github.com/qiudeng7/common-collaboration-skills
+
+一次任务中首次使用时说明即可，不必在每条消息中重复。
+
+
+# 第一部分：通用项目文档结构
+
+
+项目知识应按下面的映射归属。其他位置可以链接到主要记录，但不要复制出多个需要人工同步的事实来源。
+
+| 需要回答的问题 | 主要记录位置 | 不应该承担的职责 |
+|---|---|---|
+| 项目是什么，怎么运行？ | `README.md` | 不保存当前任务进度，不替代开发规范和完整架构说明 |
+| 怎么开发、测试、提交？ | `CONTRIBUTING.md` | 不复制所有设计文档，不记录某一次任务的临时排查过程 |
+| 代码分成哪些模块，边界是什么？ | `docs/architecture.md`，必要时增加模块附近的文档 | 不手工维护完整函数调用图，不复述每个文件的实现 |
+| 为什么选择这个设计？ | ADR，即架构决策记录 | 不保存日常工作流水账，不表示实现已经交付 |
+| 这次要做什么，现在做到哪里？ | Issue 正文、状态和交接评论 | 不作为长期项目规范的唯一存放处，不替代代码和测试 |
+| 实际改了什么，有什么验证证据？ | Pull Request、提交和 CI 结果 | 不替代面向后续维护者的长期文档，不把未验证内容写成已完成 |
+| 当前实现究竟是什么？ | 对应版本的代码、配置和测试 | 不能仅凭现状推断历史设计意图，不能用代码掩盖已接受需求与实际行为的差异 |
+
+## `README.md`：项目入口
+
+如果需要编写、修改或审查项目 README，先读取并使用 [write-readme 子 skill](skills/write-readme/SKILL.md)，按项目类型组织用途、快速开始、使用边界和文档入口。
+
+## `CONTRIBUTING.md`：开发与提交规范
+
+贡献指南应记录稳定且可重复的流程：
+
+- 开发环境、依赖和本地启动方式；
+- 格式化、Lint、类型检查、单元测试、集成测试和构建命令；
+- 分支、提交消息和 Pull Request 约定；
+- 哪些改动需要测试、设计讨论、ADR 或维护者确认；
+- 如何读取 Issue、Pull Request 和交接记录；
+- 如何报告已验证、未验证和阻塞状态。
+
+命令必须尽量来自当前项目的实际配置。贡献指南不复制完整架构说明，也不记录单个任务的临时排查过程。
+
+## 架构文档：导航与边界
+
+通常使用 `docs/architecture.md`，大型项目可以在模块附近补充文档。它应回答：
+
+- 主要模块分别负责什么；
+- 修改某类功能应该从哪里开始；
+- 关键执行链路如何经过这些模块；
+- 哪些依赖方向允许，哪些明确禁止；
+- 哪些不变量必须保持；
+- 哪些测试或检查负责验证这些边界。
+
+架构文档写粗粒度代码地图、边界和不变量，不手工维护完整调用图。具体调用关系应通过源码检索、编译器、测试和实际运行验证。
+
+
+## Issue：可交给陌生贡献者的任务包
+
+Issue 不应只有一句实现要求，也不必提前规定全部代码步骤。它应包含：
+
+- 问题与目标：完成后用户或开发者能观察到什么变化；
+- 范围：本次包含什么，明确不包含什么；
+- 验收标准：可观察、可验证的行为，而不是只有函数名或实现步骤；
+- 相关上下文：模块、文档、已有 Issue、Pull Request 或 ADR；
+- 依赖与待决事项：阻塞条件和需要维护者决定的问题；
+- 当前摘要：负责人、关联分支或 Pull Request、最新交接记录。
+
+状态管理保持简单，选择一种主要来源（例如 Issue 标签或项目看板），不要同时手工维护多套状态。关闭 Issue 时说明是已交付还是决定不做，不要把所有关闭都解释为完成。
+
+## 交接评论：让未完成工作可以恢复
+
+任务未完成、准备更换会话或交给其他 agent 时，在 Issue 中记录结构化交接。交接不是聊天全文，至少包含：
+
+- 工作位置：分支、当前提交、关联 Pull Request、未提交修改在哪里；
+- 已完成：具体文件、提交和已完成的验收项；
+- 验证情况：实际运行的命令、结果、环境、未执行的检查及原因；
+- 关键发现：确认事实、证据，以及带适用条件的排除方案；
+- 未完成或阻塞：剩余工作、阻塞原因和需要谁决定；
+- 下一步：下一位贡献者可以直接执行的一项行动。
+
+不要写“已经完成大半”这类不可恢复的描述。Issue 和 Pull Request 属于托管平台元数据，clone Git 仓库本身不会带下来；有权限时使用平台 CLI/API 读取，离线时只能使用标明来源和导出时间的只读快照，恢复访问后再回写主要记录。
+
+## ADR：只记录值得长期保留的决策
+
+当改动涉及跨模块接口、持久化格式、兼容性策略、安全边界、重要依赖或其他长期影响时，增加 ADR。ADR 至少记录：
+
+- 背景与已确认约束；
+- 选择与理由；
+- 重要备选及未采用原因；
+- 接受的代价和风险；
+- 什么条件变化后应重新评估；
+- 对应的实现 Issue、Pull Request 和未完成部分。
+
+ADR 的状态（Proposed、Accepted、Superseded）表示设计决策状态，不表示代码已经完成。被替代的 ADR 保留，并链接到新决策。普通实现细节留在 Pull Request，不为每次小重构创建 ADR。
+
+## Pull Request、提交和 CI：交付证据
+
+Pull Request 应说明：
+
+- 关联哪个任务，属于完整交付还是部分实现；
+- 解决了什么问题，关键实现选择是什么；
+- 每项验收标准对应的测试、命令、CI 结果或运行观察；
+- 哪些检查没有执行以及原因；
+- 哪些文档或 ADR 随本次变更更新；
+- 兼容性影响、已知限制、后续工作和回退方式。
+
+只有在这次合并确实完成整个任务时，才使用自动关闭 Issue 的关键词。代码已合并、构建成功、部署命令成功、健康检查通过和真实运行路径可用是不同层级的事实，必须分别验证和报告。
+
+## 按风险控制流程强度
+
+| 改动类型 | 建议文档流程 |
 |---|---|
-| What is the project and how is it used? | `README.md` |
-| How is it developed, tested, and submitted? | `CONTRIBUTING.md` |
-| Where is code and what boundaries matter? | Architecture or module documentation |
-| Why was a durable design choice made? | ADR or accepted design proposal |
-| What should this task deliver and where is it now? | Issue and its handoff comments |
-| What changed and what proves it? | Pull request, commits, and CI |
-| What does this revision actually do? | Code, configuration, and tests |
+| 错别字、小型明确修正 | 直接 Pull Request，执行必要验证 |
+| 普通功能、缺陷修复、跨会话任务 | Issue + Pull Request + 测试；未完成时增加交接 |
+| 重要接口、兼容性、安全或架构变化 | 在上述基础上增加设计讨论和 ADR |
 
-Link to the primary record instead of maintaining parallel summaries. Code describes current behavior; accepted requirements and decisions describe intended behavior. When they conflict, expose and resolve the discrepancy rather than rewriting the requirement to match a defect.
+只把有证据、可复用的发现升级为长期知识：临时排查留在任务记录，稳定用法进入文档，设计理由进入 ADR，可执行约束进入测试或自动检查。
 
-For detailed artifact boundaries and scaling rules, read [references/contribution-model.md](references/contribution-model.md).
+# 第二部分：AI 对人的汇报结构
 
-## Design the minimum viable workflow
-
-Prefer this baseline, adapting names and locations to the repository:
-
-1. A useful `README.md`, `CONTRIBUTING.md`, and architecture/navigation document.
-2. A task issue template and pull-request template.
-3. A short `AGENTS.md` only when AI contributors need an entrypoint. Route to canonical documents; do not duplicate them.
-4. An ADR directory only after a durable cross-cutting decision needs one.
-5. Structured handoffs only for unfinished or transferred work.
-
-The files under [assets/templates](assets/templates) are starting points, not mandatory replacements. Inspect the project first, remove irrelevant sections, fill project-specific commands and boundaries, and never leave placeholders presented as facts.
-
-## Make work recoverable
-
-A task package should define the observable goal, in-scope and out-of-scope work, verifiable acceptance criteria, relevant context, dependencies, and unresolved decisions. Preserve implementation freedom unless a constraint genuinely requires a particular design.
-
-When work is interrupted or transferred, record:
-
-- exact branch, commit, pull request, and location of uncommitted work;
-- completed work tied to files or commits;
-- commands actually run, results, environment, and unverified checks;
-- confirmed findings and evidence;
-- rejected approaches with the conditions that made them unsuitable;
-- remaining work, blockers, decision owner, and one concrete next action.
-
-Keep handoffs in the task's primary record when platform access and authorization exist. If access is unavailable, create a clearly dated read-only snapshot and reconcile it back to the primary record when access returns. Never imply that cloning Git also retrieves issue or pull-request discussions.
-
-## Require evidence at delivery
-
-Pull requests should connect changes to acceptance criteria and state:
-
-- whether they fully deliver or partially advance the task;
-- the important implementation choices;
-- evidence for each completed criterion;
-- checks not run and why;
-- documentation or decision records changed;
-- compatibility risks, limitations, follow-up work, and rollback considerations when relevant.
-
-Use automatic issue-closing syntax only when merging the pull request truly completes the task. A merge, build, deployment command, or health response proves only its own stage; do not claim later runtime or production outcomes without testing them.
-
-## Keep formal process proportional
-
-- Typo or small obvious correction: direct pull request and proportionate checks; an issue is optional.
-- Ordinary feature, defect, or cross-session task: issue, pull request, tests, and a handoff if unfinished.
-- Durable API, compatibility, security, persistence, or architecture choice: add explicit design discussion and a decision record.
-
-Record a decision as accepted separately from recording its implementation as delivered. Do not infer historical rationale from current code; label missing history as unknown and record new decisions as new.
-
-## Validate the system
-
-Check syntax and repository-specific commands, then perform an empty-context review: from only the repository and one task, can a new contributor identify the goal, constraints, modification area, latest state, and next verification? Fix the exact missing entrypoint or evidence. Do not answer every failure by adding more generic documentation.
-
-Report what changed, what was verified, and what remains unverified. Keep facts, constraints, hypotheses, and recommendations visibly distinct.
+> **暂留空白，后续设计。**

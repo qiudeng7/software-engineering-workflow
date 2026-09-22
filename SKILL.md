@@ -38,7 +38,7 @@ description: This skill defines the user's commonly used collaboration conventio
 | 代码分成哪些模块，边界是什么？ | `docs/architecture.md`，必要时增加模块附近的文档 | 不手工维护完整函数调用图，不复述每个文件的实现 |
 | 为什么选择这个设计？ | ADR，即架构决策记录 | 不保存日常工作流水账，不表示实现已经交付 |
 | 这次为什么改、要改成什么、设计结论是什么？ | Issue 正文和设计讨论 | 不追踪具体执行进度，不替代代码和测试 |
-| 执行到哪里、实际改了什么、有什么验证证据？ | Pull Request、提交和 CI 结果 | 不替代面向后续维护者的长期文档，不把未验证内容写成已完成 |
+| 执行步骤进展怎样、有哪些计划偏差、验证结果是什么？ | Pull Request、提交和 CI 结果 | 不重复 Issue 中的计划与设计，不逐项复述代码 diff，不把未验证内容写成已完成 |
 | 当前实现究竟是什么？ | 对应版本的代码、配置和测试 | 不能仅凭现状推断历史设计意图，不能用代码掩盖已接受需求与实际行为的差异 |
 
 ## `README.md`：项目入口
@@ -65,7 +65,7 @@ description: This skill defines the user's commonly used collaboration conventio
 
 ## 开发管理：Issue 负责分析与设计，Pull Request 负责执行
 
-如果需要使用 Issue 和 Pull Request 管理开发，先读取并使用 [issue-pr-workflow 子 skill](skills/issue-pr-workflow/SKILL.md)。该子 skill 提供作者常用的默认规范；项目已经定义自己的开发管理规范时，以项目级规范为准。当前详细定义 `demand-change` 和 `feat` 的需求分析、系统设计与执行流程设计，其他 change 只定义分类。
+如果需要使用 Issue 和 Pull Request 管理开发，先读取并使用 [issue-pr-workflow 子 skill](skills/issue-pr-workflow/SKILL.md)。该子 skill 提供作者常用的默认规范；项目已经定义自己的开发管理规范时，以项目级规范为准。当前详细定义 `demand-change` 和 `feat` 的需求分析、系统设计与执行简报，以及这两类 change 的 Pull Request 阶段报告、计划偏差和验证规范；其他 change 只定义分类。
 
 ## ADR：只记录值得长期保留的决策
 

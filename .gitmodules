@@ -1,0 +1,3 @@
+[submodule "skills/qiudengs-svg-diagrams"]
+	path = skills/qiudengs-svg-diagrams
+	url = https://github.com/qiudeng7/qiudengs-svg-diagrams.git

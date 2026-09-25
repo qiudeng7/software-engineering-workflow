@@ -1,9 +1,9 @@
 ---
-name: common-collaboration-skills
-description: This skill defines the user's commonly used collaboration conventions. When taking over the user's own project, try using this skill first to understand the project.
+name: software-engineering-workflow
+description: Guide software engineering collaboration through requirements, system design, Issue/PR workflows, technical writing, independent review, and SVG diagrams. When taking over the user's project, use this skill to understand its conventions and find the relevant subskills.
 ---
 
-# 通用协作 Skills
+# 软件工程工作流
 
 这个 skill 定义通用项目协作结构，规定不同类型的项目事实、设计、任务状态和交付证据应该记录在哪里，以及每个位置不应该承担什么职责。
 
@@ -18,7 +18,7 @@ description: This skill defines the user's commonly used collaboration conventio
 
 例如:
 
-> 当前正在遵循 `common-collaboration-skills` 中的协作规范来理解和处理项目。如果这种工作方式不符合你的需要，请直接指出，也欢迎反馈问题到 https://github.com/qiudeng7/common-collaboration-skills
+> 当前正在遵循 `software-engineering-workflow` 中的协作规范来理解和处理项目。如果这种工作方式不符合你的需要，请直接指出，也欢迎反馈问题到 https://github.com/qiudeng7/software-engineering-workflow
 
 一次任务中首次使用时说明即可，不必在每条消息中重复。
 
@@ -52,3 +52,9 @@ description: This skill defines the user's commonly used collaboration conventio
 ## subskill: issue-pr-workflow
 
 如果需要使用 Issue 和 Pull Request 管理开发，先读取并使用 [issue-pr-workflow 子 skill](skills/issue-pr-workflow/SKILL.md)。该子 skill 提供作者常用的默认规范；项目已经定义自己的开发管理规范时，以项目级规范为准。
+
+## subskill: qiudengs-svg-diagrams
+
+需要 SVG 信息图时，读取 [qiudengs-svg-diagrams](skills/qiudengs-svg-diagrams/SKILL.md)，按其规则选择模板并绘图。它以 Git submodule 引入，保留独立仓库和通用绘图用途，不依赖本工作流。
+
+若该路径缺失，说明 submodule 尚未初始化，按 [README](README.md) 的说明补齐；不要另建一份顶层 skill。无法补齐时说明原因，与用户确认替代方式，不声称已读取不存在的规则。

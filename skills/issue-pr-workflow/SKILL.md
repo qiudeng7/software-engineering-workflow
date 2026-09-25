@@ -119,13 +119,9 @@ Issue 正文的一级标题与 Issue 标题保持一致，不另起一个名称�
 
 ### 绘图与图种选择
 
-需要绘图时，使用 `qiudengs-svg-diagrams`：
+需要绘图时，读取本仓库通过 submodule 引入的 [qiudengs-svg-diagrams](../qiudengs-svg-diagrams/SKILL.md)，再按其指引阅读相关规则和 SVG 模板并绘图。
 
-1. 先查找当前可用 skills 和本机 skills 目录。已安装时，读取其 `SKILL.md`，按指引阅读相关规则和 SVG 模板并绘图。
-2. 本机没有时，直接阅读 [GitHub 上的 SKILL.md](https://github.com/qiudeng7/qiudengs-svg-diagrams/blob/main/SKILL.md)，再按其中的相对链接阅读本次需要的规则和模板。
-3. 如果使用远端版本，要告知用户并附上仓库链接，询问用户是否希望安装到本机，方便后续使用。
-
-如果远端内容无法读取，说明原因和未能使用该 skill 的事实，与用户确认替代方式，不要声称已经遵循未读到的规则。
+若路径缺失，按[主 README](../../README.md) 初始化 submodule，不需要额外安装顶层绘图 skill。无法取得内容时，说明原因并与用户确认替代方式，不声称已经遵循未读到的规则。
 
 需求分析的交付图通常包括: 
 

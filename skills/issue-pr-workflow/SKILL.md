@@ -5,6 +5,8 @@ description: 使用 Issue 和 Pull Request 管理开发。提供作者常用的�
 
 # 使用 Issue 和 Pull Request 管理开发过程
 
+使用前读取[通用协作规范](../../SKILL.md)和 [technical-writing 子 skill](../technical-writing/SKILL.md)，按其要求组织表达、选择本类型的参考问题，并在完成写作或修改后进行独立审阅。作为审阅者使用本 skill 时，不再发起审阅；当前任务中已读取的同一规范无需重复加载。
+
 本 skill 记录作者常用的开发协作规范，适合作为项目没有明确规则时的默认方案。它不是要求所有项目统一采用的强制标准。项目已有规范时，使用项目规范，不用本 skill 覆盖或改写它。项目规范只覆盖部分内容时，本 skill 只补充未定义的部分，并向用户说明哪些规则来自项目、哪些使用了作者的默认规范。发现两者冲突时停止套用冲突规则，明确指出差异并请用户决定。
 
 本文档所说的issue 和 pr不一定是 GitHub 的 Issue 和 Pull Request，也可以是其他平台的同类概念。本文档所说的 change 是指一个或一系列 commit。

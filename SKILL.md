@@ -23,18 +23,11 @@ description: This skill defines the user's commonly used collaboration conventio
 一次任务中首次使用时说明即可，不必在每条消息中重复。
 
 
-## 面向审阅者组织表达
+## subskill: technical-writing
 
-输出的内容会被他人阅读、审阅和决策。组织内容时，应考虑读者先需要理解什么。无论是一篇文章还是一段话，开头都应该先建立整体理解，注意引导读者的注意力，每一小句都应该保证简短、只表达关键信息，额外信息可以下一句再补。
+编写、修改或审阅技术文档时，读取并使用 [technical-writing 子 skill](skills/technical-writing/SKILL.md)。它统一规定面向读者的写作要求，以及通过独立 subagent 回答读者问题的审阅流程；具体文档的职责与协作流程仍由下文和对应子 skill 规定。
 
-- 先说明主要问题、变化或结论，再展开范围、规则和依据。
-- 标题用于识别主题，开头用于建立整体理解，正文用于说明细节。不要为了避免遗漏，把所有信息挤进标题或一句话。
-- 使用直接、自然的表达。连续出现多个定语时，考虑拆成独立句子，并放到对应内容中。
-- 精简时保留影响判断的条件、例外和不确定性，通过调整位置减少阅读负担。
-- 交付前从审阅者角度检查：只读标题和开头，能否知道这次要做什么；继续阅读，能否找到需要确认的事项及其依据。
-
-# 通用项目文档结构
-
+## 通用项目文档结构
 
 项目知识应按下面的映射归属。其他位置可以链接到主要记录，但不要复制出多个需要人工同步的事实来源。
 
@@ -48,51 +41,14 @@ description: This skill defines the user's commonly used collaboration conventio
 | 执行步骤进展怎样、有哪些计划偏差、验证结果是什么？ | Pull Request、提交和 CI 结果 | 不重复 Issue 中的计划与设计，不逐项复述代码 diff，不把未验证内容写成已完成 |
 | 当前实现究竟是什么？ | 对应版本的代码、配置和测试 | 不能仅凭现状推断历史设计意图，不能用代码掩盖已接受需求与实际行为的差异 |
 
-## `README.md`：项目入口
+## subskill: README
 
 如果需要编写、修改或审查项目 README，先读取并使用 [write-readme 子 skill](skills/write-readme/SKILL.md)，按项目类型组织用途、快速开始、使用边界和文档入口。
 
-## `CONTRIBUTING.md`：开发与提交规范
+## subskill: CONTRIBUTING
 
 如果需要编写、修改或审查项目 CONTRIBUTING，先读取并使用 [write-contributing 子 skill](skills/write-contributing/SKILL.md)，按项目实际工具链说明开发环境、变更流程、验证要求和交付方式。
 
-## 架构文档：导航与边界
+## subskill: issue-pr-workflow
 
-通常使用 `docs/architecture.md`，大型项目可以在模块附近补充文档。它应回答：
-
-- 主要模块分别负责什么；
-- 修改某类功能应该从哪里开始；
-- 关键执行链路如何经过这些模块；
-- 哪些依赖方向允许，哪些明确禁止；
-- 哪些不变量必须保持；
-- 哪些测试或检查负责验证这些边界。
-
-架构文档写粗粒度代码地图、边界和不变量，不手工维护完整调用图。具体调用关系应通过源码检索、编译器、测试和实际运行验证。
-
-
-## 开发管理：Issue 负责分析与设计，Pull Request 负责执行
-
-如果需要使用 Issue 和 Pull Request 管理开发，先读取并使用 [issue-pr-workflow 子 skill](skills/issue-pr-workflow/SKILL.md)。该子 skill 提供作者常用的默认规范；项目已经定义自己的开发管理规范时，以项目级规范为准。当前详细定义 `demand-change` 和 `feat` 的需求分析、系统设计与执行简报，以及这两类 change 的 Pull Request 阶段报告、计划偏差和验证规范；其他 change 只定义分类。
-
-## ADR：只记录值得长期保留的决策
-
-当改动涉及跨模块接口、持久化格式、兼容性策略、安全边界、重要依赖或其他长期影响时，增加 ADR。ADR 至少记录：
-
-- 背景与已确认约束；
-- 选择与理由；
-- 重要备选及未采用原因；
-- 接受的代价和风险；
-- 什么条件变化后应重新评估；
-- 对应的实现 Issue、Pull Request 和未完成部分。
-
-ADR 的状态（Proposed、Accepted、Superseded）表示设计决策状态，不表示代码已经完成。被替代的 ADR 保留，并链接到新决策。普通实现细节留在 Pull Request，不为每次小重构创建 ADR。
-
-## 按风险控制流程强度
-
-| 改动类型 | 建议文档流程 |
-|---|---|
-| 错别字、小型明确修正 | 直接 Pull Request，执行必要验证 |
-| 普通功能、缺陷修复、跨会话任务 | Issue + Pull Request + 测试；未完成时增加交接 |
-| 重要接口、兼容性、安全或架构变化 | 在上述基础上增加设计讨论和 ADR |
-
-只把有证据、可复用的发现升级为长期知识：临时排查留在任务记录，稳定用法进入文档，设计理由进入 ADR，可执行约束进入测试或自动检查。
+如果需要使用 Issue 和 Pull Request 管理开发，先读取并使用 [issue-pr-workflow 子 skill](skills/issue-pr-workflow/SKILL.md)。该子 skill 提供作者常用的默认规范；项目已经定义自己的开发管理规范时，以项目级规范为准。
